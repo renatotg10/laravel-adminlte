@@ -87,38 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
 ## 4. Atualizar o Vite
 
 Edite `vite.config.js` e inclua os novos arquivos no array `input`.
-Se o projeto não usa Vue, remova o plugin `vue()` e o alias de Vue.
-
-```js
-import { defineConfig } from "vite";
-import laravel from "laravel-vite-plugin";
-import vue from "@vitejs/plugin-vue";
-
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: [
-                "resources/css/app.css",
-                "resources/js/app.js",
-
-                "resources/css/bootstrap-app.css",
-                "resources/js/bootstrap-app.js",
-                "resources/css/adminlte.css",
-                "resources/js/adminlte.js",
-            ],
-            refresh: true,
-        }),
-        vue(),
-    ],
-    resolve: {
-        alias: {
-            vue: "vue/dist/vue.esm-bundler.js",
-        },
-    },
-});
-```
-
-Versão sem Vue:
+Como este tutorial não usa Vue.js, não instale `vue` nem `@vitejs/plugin-vue`.
+Também não adicione `vue()` nem alias de Vue no `vite.config.js`.
 
 ```js
 import { defineConfig } from "vite";
@@ -130,6 +100,7 @@ export default defineConfig({
             input: [
                 "resources/css/app.css",
                 "resources/js/app.js",
+
                 "resources/css/bootstrap-app.css",
                 "resources/js/bootstrap-app.js",
                 "resources/css/adminlte.css",
