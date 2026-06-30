@@ -4,6 +4,9 @@
             <x-authentication-card-logo />
         </x-slot>
 
+        <x-slot name="title">Definir nova senha</x-slot>
+        <x-slot name="description">Escolha uma senha forte para continuar usando o sistema com segurança.</x-slot>
+
         <x-validation-errors class="mb-4" />
 
         <form method="POST" action="{{ route('password.update') }}">

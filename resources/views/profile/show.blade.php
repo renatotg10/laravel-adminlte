@@ -1,12 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <p class="text-sm font-semibold uppercase text-emerald-700">Conta</p>
+                <h2 class="text-2xl font-bold text-zinc-950">
+                    {{ __('Profile') }}
+                </h2>
+            </div>
+
+            <p class="max-w-xl text-sm leading-6 text-zinc-600">
+                Gerencie seus dados, senha, sessões e preferências de segurança.
+            </p>
+        </div>
     </x-slot>
 
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+    <div class="bg-zinc-100">
+        <div class="mx-auto max-w-7xl py-10 sm:px-6 lg:px-8">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
 

@@ -4,7 +4,10 @@
             <x-authentication-card-logo />
         </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <x-slot name="title">Recuperar senha</x-slot>
+        <x-slot name="description">Informe seu e-mail para receber o link de redefinição.</x-slot>
+
+        <div class="mb-4 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-6 text-emerald-900">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>
 
