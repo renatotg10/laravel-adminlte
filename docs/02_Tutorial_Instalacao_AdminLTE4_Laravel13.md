@@ -5,6 +5,15 @@ A ideia é manter os assets do painel separados dos assets padrão do Laravel/Ta
 
 > Se o projeto usa Laravel 12 ou 11, os mesmos passos continuam válidos desde que ele use Vite.
 
+Versões validadas neste tutorial:
+
+- `vite`: 8.1.0
+- `laravel-vite-plugin`: 3.1.0
+- `admin-lte`: 4.0.2
+- `bootstrap`: 5.3.8
+- `@fortawesome/fontawesome-free`: 7.3.0
+- `overlayscrollbars`: 2.16.0
+
 ---
 
 ## 1. Instalar as dependências via NPM
@@ -12,7 +21,7 @@ A ideia é manter os assets do painel separados dos assets padrão do Laravel/Ta
 Instale AdminLTE 4, Bootstrap, Font Awesome e OverlayScrollbars:
 
 ```bash
-npm install admin-lte@^4 bootstrap @fortawesome/fontawesome-free overlayscrollbars
+npm install admin-lte@4.0.2 bootstrap@5.3.8 @fortawesome/fontawesome-free@7.3.0 overlayscrollbars@2.16.0
 ```
 
 Esses pacotes são usados assim:
@@ -56,7 +65,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 ### `resources/css/adminlte.css`
 
 ```css
-@import "overlayscrollbars/styles/overlayscrollbars.min.css";
+@import "overlayscrollbars/overlayscrollbars.css";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "admin-lte/dist/css/adminlte.css";
 ```

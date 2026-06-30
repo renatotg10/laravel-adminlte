@@ -6,6 +6,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/admin', function () {
+    return view('adminlte.dashboard');
+})->name('admin.dashboard');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
