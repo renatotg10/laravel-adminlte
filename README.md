@@ -163,15 +163,37 @@ resources/views/adminlte/partials/sidebar.blade.php
 
 ## Documentação
 
-Os tutoriais usados para montar este projeto estão em:
+Documentos principais:
+
+```text
+CHANGELOG.md
+SECURITY.md
+docs/ARCHITECTURE.md
+docs/DEPLOYMENT.md
+docs/03_Tutorial_Documentacao_e_Versionamento.md
+docs/ROADMAP.md
+docs/TROUBLESHOOTING.md
+docs/VERSIONING.md
+```
+
+Tutoriais usados para montar este projeto:
 
 ```text
 docs/01_Tutorial_Laravel13_autenticação_Jetstream_Livewire.md
 docs/02_Tutorial_Instalacao_AdminLTE4_Laravel13.md
+docs/03_Tutorial_Documentacao_e_Versionamento.md
 ```
 
 O primeiro tutorial cria o projeto base com Jetstream e Livewire.
 O segundo instala e configura o AdminLTE 4.
+O terceiro explica a finalidade da documentação do projeto e o fluxo de versionamento.
+
+## Referências
+
+- [Documentação oficial do AdminLTE 4](https://adminlte.io/themes/v4/docs/introduction.html)
+- [Laravel](https://laravel.com/docs)
+- [Jetstream](https://jetstream.laravel.com)
+- [Livewire](https://livewire.laravel.com)
 
 ## Versões Validadas
 
