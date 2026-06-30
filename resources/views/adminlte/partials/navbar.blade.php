@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="#" class="nav-link" data-lte-toggle="sidebar" role="button">
+                <a href="#" class="nav-link" data-lte-toggle="sidebar" role="button" aria-label="Alternar menu">
                     <i class="fas fa-bars"></i>
                 </a>
             </li>
@@ -12,7 +12,9 @@
             </li>
 
             <li class="nav-item d-none d-md-block">
-                <a href="{{ url('/contatos') }}" class="nav-link">Contatos</a>
+                <a href="https://adminlte.io/themes/v4/docs/introduction.html" target="_blank" rel="noopener noreferrer" class="nav-link">
+                    Documentação
+                </a>
             </li>
         </ul>
 
@@ -29,15 +31,23 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         @if (Route::has('profile.show'))
                             <li>
-                                <a class="dropdown-item" href="{{ route('profile.show') }}">Perfil</a>
+                                <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                    <i class="fa-solid fa-user-gear me-2"></i>
+                                    Perfil
+                                </a>
                             </li>
                         @endif
 
                         @if (Route::has('logout'))
+                            <li><hr class="dropdown-divider"></li>
+
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="dropdown-item">Sair</button>
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fa-solid fa-right-from-bracket me-2"></i>
+                                        Sair
+                                    </button>
                                 </form>
                             </li>
                         @endif

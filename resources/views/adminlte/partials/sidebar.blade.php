@@ -1,7 +1,7 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="{{ url('/admin') }}" class="brand-link">
-            <span class="brand-text fw-light">Meu Painel</span>
+            <span class="brand-text fw-semibold">{{ config('app.name', 'Laravel AdminLTE') }}</span>
         </a>
     </div>
 
@@ -15,27 +15,31 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-header">BASE DO PROJETO</li>
+
+                <li class="nav-item menu-open">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-box"></i>
+                        <i class="nav-icon fas fa-layer-group"></i>
                         <p>
-                            Cadastros
+                            Estrutura
                             <i class="nav-arrow fas fa-angle-right"></i>
                         </p>
                     </a>
 
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('/usuarios') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Usuários</p>
-                            </a>
-                        </li>
+                        @if (Route::has('profile.show'))
+                            <li class="nav-item">
+                                <a href="{{ route('profile.show') }}" class="nav-link {{ request()->routeIs('profile.show') ? 'active' : '' }}">
+                                    <i class="nav-icon far fa-user"></i>
+                                    <p>Perfil</p>
+                                </a>
+                            </li>
+                        @endif
 
                         <li class="nav-item">
-                            <a href="{{ url('/produtos') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Produtos</p>
+                            <a href="https://adminlte.io/themes/v4/docs/introduction.html" target="_blank" rel="noopener noreferrer" class="nav-link">
+                                <i class="nav-icon far fa-file-lines"></i>
+                                <p>Docs AdminLTE</p>
                             </a>
                         </li>
                     </ul>
