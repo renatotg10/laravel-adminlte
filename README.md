@@ -1,58 +1,197 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel AdminLTE
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Projeto inicial em Laravel 13 com autenticação, idioma `pt_BR` e painel administrativo já configurados.
 
-## About Laravel
+A ideia deste repositório é servir como base para novos sistemas: basta clonar, configurar o `.env`, instalar as dependências e começar o desenvolvimento.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Repositório: [renatotg10/laravel-adminlte](https://github.com/renatotg10/laravel-adminlte.git)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Laravel 13
+- Jetstream
+- Livewire
+- Sanctum
+- Tailwind CSS, usado pelo Jetstream
+- AdminLTE 4
+- Bootstrap 5
+- Font Awesome
+- OverlayScrollbars
+- Vite
+- Idioma `pt_BR`
 
-## Learning Laravel
+## Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.3 ou superior
+- Composer
+- Node.js e NPM
+- MySQL/MariaDB ou outro banco suportado pelo Laravel
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Em ambiente local no Windows, o projeto foi pensado para uso com Laragon.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Como Usar
 
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Clone o repositório:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/renatotg10/laravel-adminlte.git
+cd laravel-adminlte
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Instale as dependências PHP:
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Crie o arquivo de ambiente:
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+No Windows PowerShell, se preferir:
 
-## Security Vulnerabilities
+```powershell
+Copy-Item .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Gere a chave da aplicação:
 
-## License
+```bash
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Configure no `.env` o nome da aplicação, URL e banco de dados:
+
+```env
+APP_NAME="Meu Sistema"
+APP_URL=http://laravel-adminlte.test
+APP_LOCALE=pt_BR
+APP_FALLBACK_LOCALE=pt_BR
+APP_TIMEZONE=America/Sao_Paulo
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel_adminlte
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Execute as migrations:
+
+```bash
+php artisan migrate
+```
+
+Instale as dependências JavaScript:
+
+```bash
+npm install
+```
+
+Compile os assets:
+
+```bash
+npm run build
+```
+
+Para desenvolvimento, rode:
+
+```bash
+npm run dev
+```
+
+Em outro terminal, rode o Laravel:
+
+```bash
+php artisan serve
+```
+
+Acesse:
+
+```text
+http://127.0.0.1:8000
+```
+
+Painel AdminLTE:
+
+```text
+http://127.0.0.1:8000/admin
+```
+
+## Usando com Laragon
+
+Se o projeto estiver dentro de `C:\laragon\www\laravel-adminlte`, reinicie o Apache no Laragon e acesse:
+
+```text
+http://laravel-adminlte.test
+```
+
+Caso use outro nome de pasta, ajuste o `APP_URL` no `.env`.
+
+## Estrutura do Painel
+
+Os assets do AdminLTE ficam separados dos assets padrão do Laravel/Jetstream:
+
+```text
+resources/css/bootstrap-app.css
+resources/js/bootstrap-app.js
+resources/css/adminlte.css
+resources/js/adminlte.js
+```
+
+O layout base do painel está em:
+
+```text
+resources/views/layouts/adminlte.blade.php
+```
+
+A tela inicial do painel está em:
+
+```text
+resources/views/adminlte/dashboard.blade.php
+```
+
+As partials principais ficam em:
+
+```text
+resources/views/adminlte/partials/navbar.blade.php
+resources/views/adminlte/partials/sidebar.blade.php
+```
+
+## Documentação
+
+Os tutoriais usados para montar este projeto estão em:
+
+```text
+docs/01_Tutorial_Laravel13_autenticação_Jetstream_Livewire.md
+docs/02_Tutorial_Instalacao_AdminLTE4_Laravel13.md
+```
+
+O primeiro tutorial cria o projeto base com Jetstream e Livewire.
+O segundo instala e configura o AdminLTE 4.
+
+## Versões Validadas
+
+- `laravel/framework`: 13.x
+- `laravel/jetstream`: 5.5.x
+- `livewire/livewire`: 3.6.x
+- `vite`: 8.1.0
+- `laravel-vite-plugin`: 3.1.0
+- `admin-lte`: 4.0.2
+- `bootstrap`: 5.3.8
+- `@fortawesome/fontawesome-free`: 7.3.0
+- `overlayscrollbars`: 2.16.0
+
+## Observações
+
+- O Jetstream continua usando os assets padrão `resources/css/app.css` e `resources/js/app.js`.
+- O AdminLTE usa arquivos separados para evitar conflito com Tailwind.
+- Este projeto não usa Vue.js.
+- O caminho correto do CSS do OverlayScrollbars é `overlayscrollbars/overlayscrollbars.css`.
+
+## Licença
+
+Este projeto segue a licença MIT.
