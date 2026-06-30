@@ -57,6 +57,27 @@ Confira também se o botão da navbar usa o atributo esperado pelo AdminLTE:
 data-lte-toggle="sidebar"
 ```
 
+## Estilos do Jetstream Afetando o AdminLTE
+
+O layout AdminLTE não deve carregar os assets padrão do Jetstream:
+
+```blade
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+```
+
+No painel, carregue apenas os assets separados do AdminLTE:
+
+```blade
+@vite([
+    'resources/css/bootstrap-app.css',
+    'resources/js/bootstrap-app.js',
+    'resources/css/adminlte.css',
+    'resources/js/adminlte.js',
+])
+```
+
+Use Tailwind nas telas Jetstream/Auth/Profile e use Bootstrap/AdminLTE nas views dentro de `resources/views/adminlte`.
+
 ## Erro de Chave da Aplicação
 
 Se aparecer erro de `APP_KEY`, gere uma nova chave:

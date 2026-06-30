@@ -14,6 +14,15 @@ O formato segue a ideia do [Keep a Changelog](https://keepachangelog.com/pt-BR/1
 - Bootstrap, Font Awesome e OverlayScrollbars configurados via Vite.
 - Tutoriais de criação do projeto e instalação do AdminLTE em `docs/`.
 - README específico para uso como base clonável de novos projetos.
+- Página inicial personalizada para apresentar o template.
+- Telas de autenticação e perfil modernizadas usando os componentes do Jetstream/Tailwind.
+- Dashboard starter em AdminLTE com cards, small boxes, tabela de estrutura e próximos passos.
+- Layout AdminLTE com suporte a título, subtítulo, breadcrumbs e ações por página.
+
+### Alterado
+
+- Rota `/dashboard` redireciona para o painel `/admin`.
+- Navbar e sidebar do AdminLTE foram ajustadas para links reais do template.
 
 ## [0.1.0] - 2026-06-29
 

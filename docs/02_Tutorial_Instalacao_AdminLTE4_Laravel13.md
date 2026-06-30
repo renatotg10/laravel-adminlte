@@ -129,20 +129,17 @@ Crie `resources/views/layouts/adminlte.blade.php`:
 ```blade
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'Painel Administrativo' }}</title>
+    <title>@yield('title', $title ?? 'Painel Administrativo')</title>
 
-    @vite([
-        'resources/css/bootstrap-app.css',
-        'resources/js/bootstrap-app.js',
-        'resources/css/adminlte.css',
-        'resources/js/adminlte.js',
-    ])
+    @vite(['resources/css/bootstrap-app.css', 'resources/js/bootstrap-app.js', 'resources/css/adminlte.css', 'resources/js/adminlte.js'])
 </head>
+
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
         @include('adminlte.partials.navbar')
@@ -151,7 +148,42 @@ Crie `resources/views/layouts/adminlte.blade.php`:
         <main class="app-main">
             <div class="app-content-header">
                 <div class="container-fluid">
-                    @yield('content-header')
+                    @hasSection('content-header')
+                        @yield('content-header')
+                    @else
+                        <div class="row align-items-center">
+                            <div class="col-sm-8">
+                                <h1 class="mb-0">@yield('page-title', 'Painel Administrativo')</h1>
+
+                                @hasSection('page-subtitle')
+                                    <p class="text-secondary mb-0 mt-1">@yield('page-subtitle')</p>
+                                @endif
+                            </div>
+
+                            <div class="col-sm-4">
+                                @hasSection('breadcrumb')
+                                    <ol class="breadcrumb float-sm-end mb-0">
+                                        @yield('breadcrumb')
+                                    </ol>
+                                @else
+                                    <ol class="breadcrumb float-sm-end mb-0">
+                                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">@yield('page-title', 'Painel')</li>
+                                    </ol>
+                                @endif
+                            </div>
+                        </div>
+
+                        @hasSection('page-actions')
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <div class="d-flex flex-wrap gap-2">
+                                        @yield('page-actions')
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endif
                 </div>
             </div>
 
@@ -162,9 +194,14 @@ Crie `resources/views/layouts/adminlte.blade.php`:
             </div>
         </main>
     </div>
+
+    @stack('scripts')
 </body>
+
 </html>
 ```
+
+Esse layout permite usar as sections `title`, `page-title`, `page-subtitle`, `breadcrumb`, `page-actions` e `content`.
 
 ---
 
@@ -187,7 +224,9 @@ Crie `resources/views/adminlte/partials/navbar.blade.php`:
             </li>
 
             <li class="nav-item d-none d-md-block">
-                <a href="{{ url('/contatos') }}" class="nav-link">Contatos</a>
+                <a href="https://adminlte.io/themes/v4/docs/introduction.html" target="_blank" rel="noopener noreferrer" class="nav-link">
+                    Documentação
+                </a>
             </li>
         </ul>
 
@@ -207,15 +246,23 @@ Crie `resources/views/adminlte/partials/navbar.blade.php`:
                     <ul class="dropdown-menu dropdown-menu-end">
                         @if (Route::has('profile.show'))
                             <li>
-                                <a class="dropdown-item" href="{{ route('profile.show') }}">Perfil</a>
+                                <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                    <i class="fa-solid fa-user-gear me-2"></i>
+                                    Perfil
+                                </a>
                             </li>
                         @endif
 
                         @if (Route::has('logout'))
+                            <li><hr class="dropdown-divider"></li>
+
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="dropdown-item">Sair</button>
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fa-solid fa-right-from-bracket me-2"></i>
+                                        Sair
+                                    </button>
                                 </form>
                             </li>
                         @endif
@@ -242,7 +289,7 @@ Crie `resources/views/adminlte/partials/sidebar.blade.php`:
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="{{ url('/admin') }}" class="brand-link">
-            <span class="brand-text fw-light">Meu Painel</span>
+            <span class="brand-text fw-semibold">{{ config('app.name', 'Laravel AdminLTE') }}</span>
         </a>
     </div>
 
@@ -261,27 +308,31 @@ Crie `resources/views/adminlte/partials/sidebar.blade.php`:
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-header">BASE DO PROJETO</li>
+
+                <li class="nav-item menu-open">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-box"></i>
+                        <i class="nav-icon fas fa-layer-group"></i>
                         <p>
-                            Cadastros
+                            Estrutura
                             <i class="nav-arrow fas fa-angle-right"></i>
                         </p>
                     </a>
 
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('/usuarios') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Usuários</p>
-                            </a>
-                        </li>
+                        @if (Route::has('profile.show'))
+                            <li class="nav-item">
+                                <a href="{{ route('profile.show') }}" class="nav-link {{ request()->routeIs('profile.show') ? 'active' : '' }}">
+                                    <i class="nav-icon far fa-user"></i>
+                                    <p>Perfil</p>
+                                </a>
+                            </li>
+                        @endif
 
                         <li class="nav-item">
-                            <a href="{{ url('/produtos') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Produtos</p>
+                            <a href="https://adminlte.io/themes/v4/docs/introduction.html" target="_blank" rel="noopener noreferrer" class="nav-link">
+                                <i class="nav-icon far fa-file-lines"></i>
+                                <p>Docs AdminLTE</p>
                             </a>
                         </li>
                     </ul>
@@ -294,32 +345,79 @@ Crie `resources/views/adminlte/partials/sidebar.blade.php`:
 
 ---
 
-## 8. Criar uma página de teste
+## 8. Criar uma página starter
 
 Crie `resources/views/adminlte/dashboard.blade.php`:
 
 ```blade
 @extends('layouts.adminlte')
 
-@section('content-header')
-    <div class="row">
-        <div class="col-sm-6">
-            <h1 class="mb-0">Dashboard</h1>
-        </div>
-    </div>
+@section('title', 'Dashboard - Painel Administrativo')
+@section('page-title', 'Dashboard')
+@section('page-subtitle', 'Base Laravel 13 com Jetstream, Livewire e AdminLTE pronta para novos projetos.')
+
+@section('page-actions')
+    <a href="{{ url('/') }}" class="btn btn-outline-secondary">
+        <i class="fa-solid fa-house me-1"></i>
+        Página inicial
+    </a>
+
+    <a href="https://adminlte.io/themes/v4/docs/introduction.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+        <i class="fa-solid fa-book-open me-1"></i>
+        Docs AdminLTE
+    </a>
 @endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title mb-0">AdminLTE</h5>
+    <div class="row g-3">
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="small-box text-bg-primary shadow-sm">
+                <div class="inner">
+                    <h3>13</h3>
+                    <p>Laravel</p>
+                </div>
+                <i class="small-box-icon fa-brands fa-laravel"></i>
+                <span class="small-box-footer">Framework da aplicação</span>
+            </div>
         </div>
-        <div class="card-body">
-            AdminLTE carregado com sucesso!
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="small-box text-bg-success shadow-sm">
+                <div class="inner">
+                    <h3>Auth</h3>
+                    <p>Jetstream</p>
+                </div>
+                <i class="small-box-icon fa-solid fa-user-shield"></i>
+                <span class="small-box-footer">Login, perfil e sessão</span>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="small-box text-bg-warning shadow-sm">
+                <div class="inner">
+                    <h3>UI</h3>
+                    <p>Livewire</p>
+                </div>
+                <i class="small-box-icon fa-solid fa-wave-square"></i>
+                <span class="small-box-footer">Componentes interativos</span>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="small-box text-bg-danger shadow-sm">
+                <div class="inner">
+                    <h3>4</h3>
+                    <p>AdminLTE</p>
+                </div>
+                <i class="small-box-icon fa-solid fa-table-columns"></i>
+                <span class="small-box-footer">Layout administrativo</span>
+            </div>
         </div>
     </div>
 @endsection
 ```
+
+O projeto deste repositório inclui uma versão mais completa desse dashboard, com cards, tabela de estrutura e próximos passos.
 
 ---
 
@@ -330,15 +428,29 @@ Em `routes/web.php`, adicione:
 ```php
 use Illuminate\Support\Facades\Route;
 
-Route::get('/admin', function () {
-    return view('adminlte.dashboard');
-})->name('admin.dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return redirect()->route('admin.dashboard');
+    })->name('dashboard');
+
+    Route::get('/admin', function () {
+        return view('adminlte.dashboard');
+    })->name('admin.dashboard');
+});
 ```
 
-Se o painel deve exigir login:
+Em projetos com Jetstream, prefira usar o mesmo grupo de middleware criado por ele:
 
 ```php
-Route::middleware('auth')->group(function () {
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return redirect()->route('admin.dashboard');
+    })->name('dashboard');
+
     Route::get('/admin', function () {
         return view('adminlte.dashboard');
     })->name('admin.dashboard');

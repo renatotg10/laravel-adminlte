@@ -12,6 +12,8 @@ O objetivo é servir como ponto de partida para novos sistemas, mantendo a auten
 - Vite compila assets JavaScript e CSS.
 - Tailwind continua sendo usado pelo Jetstream.
 - Bootstrap/AdminLTE ficam em arquivos separados para evitar conflito visual com Tailwind.
+- As telas de autenticação e perfil usam componentes Jetstream/Tailwind modernizados.
+- O painel `/admin` usa AdminLTE/Bootstrap e inclui um dashboard starter.
 
 ## Assets
 
@@ -58,7 +60,9 @@ resources/views/adminlte/partials/sidebar.blade.php
 
 A rota `/admin` carrega o painel AdminLTE inicial.
 
-A rota `/dashboard` continua vinculada ao fluxo autenticado do Jetstream.
+A rota `/dashboard` continua vinculada ao fluxo autenticado do Jetstream, mas redireciona para `/admin`.
+
+O painel `/admin` deve permanecer protegido pelo middleware de autenticação do Jetstream.
 
 ## Decisões Técnicas
 
@@ -66,3 +70,5 @@ A rota `/dashboard` continua vinculada ao fluxo autenticado do Jetstream.
 - O CSS do OverlayScrollbars deve ser importado por `overlayscrollbars/overlayscrollbars.css`.
 - O AdminLTE não deve carregar `resources/css/app.css` quando o objetivo for evitar influência do Tailwind no painel.
 - Novos módulos administrativos devem reaproveitar o layout `layouts.adminlte`.
+- Views do painel devem usar classes AdminLTE/Bootstrap, como `card`, `row`, `col-*`, `btn`, `badge`, `table`, `small-box` e `list-group`.
+- Views do Jetstream, autenticação e perfil podem usar Tailwind, pois pertencem ao fluxo padrão da aplicação.

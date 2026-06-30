@@ -20,6 +20,8 @@ Repositório: [renatotg10/laravel-adminlte](https://github.com/renatotg10/larave
 - Vite
 - Idioma `pt_BR`
 
+O template também inclui páginas de autenticação/perfil modernizadas para o Jetstream e um dashboard inicial em AdminLTE 4 para servir como referência visual do painel.
+
 ## Requisitos
 
 - PHP 8.3 ou superior
@@ -121,6 +123,8 @@ Painel AdminLTE:
 http://127.0.0.1:8000/admin
 ```
 
+Após o login, a rota `/dashboard` redireciona para `/admin`.
+
 ## Usando com Laragon
 
 Se o projeto estiver dentro de `C:\laragon\www\laravel-adminlte`, reinicie o Apache no Laragon e acesse:
@@ -160,6 +164,8 @@ As partials principais ficam em:
 resources/views/adminlte/partials/navbar.blade.php
 resources/views/adminlte/partials/sidebar.blade.php
 ```
+
+O painel `/admin` usa Bootstrap/AdminLTE. As telas do Jetstream, autenticação e perfil usam Tailwind. Essa separação evita conflitos entre os estilos.
 
 ## Documentação
 
